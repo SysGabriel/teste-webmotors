@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/modernizr")
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar_brand text-white text-decoration-none" href="/home/">Teste para WebMotors</a>
+            <div>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/home/">Consultar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/home/editar">Editar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/home/deletar">Delete</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/jquery")
+    @Scripts.Render("~/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
