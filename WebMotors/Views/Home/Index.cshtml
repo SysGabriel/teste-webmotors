@@ -1,5 +1,19 @@
 ﻿<div class="col-md-12">
-    <div>
-
-    </div>
+    CRUD API
+    <table>
+        <tr>
+            <th>Marca</th>
+            <td>
+                <select>
+                    @if(ViewBag.MarcaOnline != null)
+                    {
+                        foreach(var marca in ViewBag.MarcaOnline)
+                        {
+                            <option value="@marca.Id">@marca.Nome</option>
+                        }
+                    }
+                </select>
+            </td>
+        </tr>
+    </table>
 </div>

@@ -56,7 +56,7 @@ namespace WebMotors.Repository
             }
         }
 
-        public Anuncio ConsultarAnuncio (int id)
+        public Anuncio GetAnuncio (int id)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace WebMotors.Repository
             
         }
 
-        public List<Anuncio> ConsultarTodosAnuncio()
+        public List<Anuncio> GetAnuncios()
         {
             try
             {
