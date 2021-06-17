@@ -27,7 +27,7 @@ namespace WebMotors.Services
             return request;
         }
 
-        public Marca GetMarcas()
+        public object GetMarcas()
         {
             var request = CreateRequest("/api/OnlineChallenge/Make", Method.GET);
             try
@@ -35,7 +35,7 @@ namespace WebMotors.Services
                 var response = Client.Execute(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    return JsonConvert.DeserializeObject<Marca>(response.Content);
+                    return JsonConvert.DeserializeObject(response.Content);
                 }
                 else
                 {
@@ -48,7 +48,49 @@ namespace WebMotors.Services
             }
         }
 
-        
+        public object GetModelos(int marcaId)
+        {
+            var request = CreateRequest($"/api/OnlineChallenge/Model?MakeId={marcaId}", Method.GET);
+            try
+            {
+                var response = Client.Execute(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return JsonConvert.DeserializeObject(response.Content);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public object GetVersoes(int ModeloId
+        {
+            var request = CreateRequest($"/api/OnlineChallenge/Version?ModelId={ModeloId}", Method.GET);
+            try
+            {
+                var response = Client.Execute(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return JsonConvert.DeserializeObject(response.Content);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
 
     }
 }

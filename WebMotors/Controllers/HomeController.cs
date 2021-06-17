@@ -21,20 +21,54 @@ namespace WebMotors.Controllers
             return View();
         }
 
-        public ActionResult Editar()
+        public ActionResult Index(int marcaId)
         {
-            ViewBag.Title = "Editar";
-
+            ViewBag.Title = "Home Page";
+            AnuncioService service = new AnuncioService();
+            ViewBag.MarcasOnline = service.GetMarcas();
+            ViewBag.ModelosOnline = service.GetModelos(marcaId);
             ViewBag.AnunciosSalvos = repository.GetAnuncios();
+
             return View();
         }
 
-        public ActionResult Deletar()
+        public ActionResult Index(int marcaId, int modeloId)
+        {
+            ViewBag.Title = "Home Page";
+            AnuncioService service = new AnuncioService();
+            ViewBag.MarcasOnline = service.GetMarcas();
+            ViewBag.ModelosOnline = service.GetModelos(marcaId);
+            ViewBag.VersoesOnline = service.GetVersoes(modeloId);
+            ViewBag.AnunciosSalvos = repository.GetAnuncios();
+
+            return View();
+        }
+        [HttpPost]
+        public JsonResult Adicionar(int marcaId, int modeloId, int )
+        {
+            ViewBag.Title = "Home Page";
+            AnuncioService service = new AnuncioService();
+            ViewBag.MarcasOnline = service.GetMarcas();
+            ViewBag.AnunciosSalvos = repository.GetAnuncios();
+
+            return Json("Adicionado com sucesso");
+        }
+
+        [HttpPost]
+        public JsonResult Editar()
+        {
+            ViewBag.Title = "Editar";
+
+            
+            return Json("Editado com Sucesso");
+        }
+
+        [HttpPost]
+        public JsonResult Deletar(int id)
         {
             ViewBag.Title = "Deletar";
 
-            ViewBag.AnunciosSalvos = repository.GetAnuncios();
-            return View();
+            return Json("Deletado com sucesso");
         }
 
         //public JsonResult SalvarMarca

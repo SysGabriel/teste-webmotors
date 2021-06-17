@@ -2,18 +2,20 @@
     CRUD API
     <table>
         <tr>
-            <th>Marca</th>
-            <td>
-                <select>
-                    @if(ViewBag.MarcaOnline != null)
-                    {
-                        foreach(var marca in ViewBag.MarcaOnline)
+            <form action="/home/index" method="get">
+                <th>Marca</th>
+                <td>
+                    <select name="makeId">
+                        @if (ViewBag.MarcaOnline != null)
                         {
-                            <option value="@marca.Id">@marca.Nome</option>
+                            foreach (var marca in ViewBag.MarcaOnline)
+                            {
+                                <option value="@marca.Id">@marca.Nome</option>
+                            }
                         }
-                    }
-                </select>
-            </td>
+                    </select>
+                </td>
+            </form>
         </tr>
     </table>
 </div>
