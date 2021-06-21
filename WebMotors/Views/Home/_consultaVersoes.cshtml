@@ -1,0 +1,7 @@
+﻿@if (ViewBag.VersoesOnline != null)
+{
+    foreach (var versao in ViewBag.VersoesOnline)
+    {
+        <option value="@versao.ID">@versao.Name</option>
+    }
+}

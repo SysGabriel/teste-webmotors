@@ -34,19 +34,16 @@
             <table class="col-sm-4">
                 <tr>
                     <th style="text-align: center">Marcas</th>
-                    @if (ViewBag.MarcasOnline != null)
-                    {
-                        <td>
-                            <select name="marcas" id="marcas">
-                                @foreach (var marcaOnline in ViewBag.MarcasOnline)
-                                {
-                                    <option value="@marcaOnline.ID" onclick="verModelos(@marcaOnline.ID)">
-                                        @marcaOnline.Name
-                                    </option>
-                                }
-                            </select>
-                        </td>
-                    }
+                    <td>
+                        @if (ViewBag.MarcasOnline != null)
+                        {
+                            foreach (var marcaOnline in ViewBag.MarcasOnline)
+                            {
+                                <button value="@marcaOnline.ID" onclick="verModelos(@marcaOnline.ID)">@marcaOnline.Name</button>
+                            }
+                            
+                        }
+                    </td>
                 </tr>
             </table>
         </div>
@@ -55,9 +52,16 @@
                 <tr>
                     <th style="text-align: center">Modelos</th>
                     <td>
-                        <select name="modelos" id="modelos">
-                            
-                        </select>
+                        <div id="modelos">
+                            @if (ViewBag.ModelosOnline != null)
+                            {
+                                foreach (var modelo in ViewBag.ModelosOnline)
+                                {
+                                    <button value="@modelo.ID" onclick="verVersoes(@modelo.ID)">@modelo.Name</button>
+                                }
+
+                            }
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -67,9 +71,16 @@
                 <tr>
                     <th style="text-align: center">Versoes</th>
                     <td>
-                        <select name="versoes" id="versoes">
-                            
-                        </select>
+                        <div id="versoes">
+                            @if (ViewBag.VersoesOnline != null)
+                            {
+                                foreach (var versao in ViewBag.VersoesOnline)
+                                {
+                                    <button value="@versao.ID">@versao.Name</button>
+                                }
+
+                            }
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -112,32 +123,35 @@
 <script>
     function verModelos(id) {
         $.ajax({
-            method: "GET",
-            dataType: "json",
-            url: `/home/consultarModelos?marcaId=${id}`,
-            success: function(succ) {
-                var htmlTotal = '';
-                foreach(let obj in succ){
-                    htmlTotal = htmlTotal + '<option value="' + obj.ID + '">' + obj.Name + '</option>';
-                };
-                $('#marcas').html(htmlTotal);
+            method: 'POST',
+            dataType:'json',
+            url: '/Home/consultarModelos?marcaId={'+id+'}',
+            success: function (json) {
+                console.log("ConsultaModelos: " + id);
+                alert(modelo);
+                for (var modelo in json) {
+                    $('#modelos').html('<button value="'+modelo.ID+'">'+modelo.Name+'</button>')
+                }       
             },
-            error: function(ex) {
-                alert(ex);
+            error: function (ex) {
+                alert("Ocorreu um erro: " + ex);
             }
         })
     }
 
-    function verVersoes(id, modeloId) {
+    function verVersao(id) {
         $.ajax({
-            method: "GET",
-            dataType: "json",
-            url: `/home/index?marcaId=${id}&modeloId=${modeloId}`,
-            success: function () {
-                
+            method: 'POST',
+            url: '/Home/consultarVersao?modeloId={'+id+'}',
+            dataType: 'json',
+            success: function (json) {
+                console.log("ConsultaVersao: " + id);
+                for (var versao in json) {
+                    $('#versoes').html('<button value="'+versao.ID+'">'+versao.Name+'</button>')
+                }
             },
             error: function (ex) {
-                alert(ex);
+                alert("Ocorreu um erro: " + ex);
             }
         })
     }

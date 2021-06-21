@@ -1,0 +1,9 @@
+﻿<select name="modelos" id="modelos" onclick="">
+    @if (ViewBag.ModelosOnline != null)
+    {
+        foreach (var modelo in ViewBag.ModelosOnline)
+        {
+            <option value="@modelo.ID">@modelo.Name</option>
+        }
+    }
+</select>

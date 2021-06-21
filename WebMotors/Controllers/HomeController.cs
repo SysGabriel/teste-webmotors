@@ -20,7 +20,8 @@ namespace WebMotors.Controllers
             {
                 ViewBag.AnunciosSalvos = repository.GetAnuncios();
                 var marcasOnline = service.GetMarcas();
-                ViewBag.MarcasOnline = marcasOnline;                
+                ViewBag.MarcasOnline = marcasOnline;
+                
             }
             catch(Exception ex)
             {
@@ -32,35 +33,34 @@ namespace WebMotors.Controllers
             return View();
         }
 
-        public JsonResult ConsultarModelos (int marcaId)
+        public JsonResult consultarModelos(int marcaId)
         {
             AnuncioService service = new AnuncioService();
             try
             {
-                var modelos = service.GetModelos(marcaId);
-                Response.StatusCode = 200;
-                return Json(modelos);
-            }catch(Exception ex)
+                var modelosOnline = service.GetModelos(marcaId);
+                ViewBag.ModelosOnline = modelosOnline;
+                return Json(modelosOnline);
+            }
+            catch(Exception ex)
             {
-                Response.StatusCode = 500;
                 throw ex;
             }
-        } 
+        }
 
-        public JsonResult ConsultarVersoes (int modeloId)
+        public JsonResult consultarVersao(int modeloId)
         {
             AnuncioService service = new AnuncioService();
             try
             {
-                var versoes = service.GetVersoes(modeloId);
-                Response.StatusCode = 200;
-                return Json(versoes);
-            }catch(Exception ex)
+                var versoesOnline = service.GetVersoes(modeloId);
+                ViewBag.VersoesOnline = versoesOnline;
+                return Json(versoesOnline);
+            }
+            catch (Exception ex)
             {
-                Response.StatusCode = 500;
                 throw ex;
             }
-
         }
 
         [HttpPost]

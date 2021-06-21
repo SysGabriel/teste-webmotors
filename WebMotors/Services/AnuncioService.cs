@@ -28,7 +28,7 @@ namespace WebMotors.Services
             return request;
         }
 
-        public object GetMarcas()
+        public List<object> GetMarcas()
         {
             var request = CreateRequest("https://desafioonline.webmotors.com.br/api/OnlineChallenge/Make", Method.GET);
             try
@@ -36,8 +36,8 @@ namespace WebMotors.Services
                 var response = Client.Execute(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    
-                    return JsonConvert.DeserializeObject(response.Content);
+
+                    return JsonConvert.DeserializeObject<object[]>(response.Content).ToList<object>();
                 }
                 else
                 {
@@ -50,7 +50,7 @@ namespace WebMotors.Services
             }
         }
 
-        public object GetModelos(int marcaId)
+        public List<object> GetModelos(int marcaId)
         {
             var request = CreateRequest($"https://desafioonline.webmotors.com.br/api/OnlineChallenge/Model?MakeId={marcaId}", Method.GET);
             try
@@ -58,7 +58,7 @@ namespace WebMotors.Services
                 var response = Client.Execute(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    return JsonConvert.DeserializeObject(response.Content);
+                    return JsonConvert.DeserializeObject<object[]>(response.Content).ToList<object>();
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace WebMotors.Services
             }
         }
 
-        public object GetVersoes(int ModeloId)
+        public List<object> GetVersoes(int ModeloId)
         {
             var request = CreateRequest($"https://desafioonline.webmotors.com.br/api/OnlineChallenge/Version?ModelId={ModeloId}", Method.GET);
             try
@@ -79,7 +79,7 @@ namespace WebMotors.Services
                 var response = Client.Execute(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    return response.Content;
+                    return JsonConvert.DeserializeObject<object[]>(response.Content).ToList<object>();
                 }
                 else
                 {
