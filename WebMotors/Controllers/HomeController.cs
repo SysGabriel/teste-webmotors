@@ -31,6 +31,38 @@ namespace WebMotors.Controllers
 
             return View();
         }
+
+        public JsonResult ConsultarModelos (int marcaId)
+        {
+            AnuncioService service = new AnuncioService();
+            try
+            {
+                var modelos = service.GetModelos(marcaId);
+                Response.StatusCode = 200;
+                return Json(modelos);
+            }catch(Exception ex)
+            {
+                Response.StatusCode = 500;
+                throw ex;
+            }
+        } 
+
+        public JsonResult ConsultarVersoes (int modeloId)
+        {
+            AnuncioService service = new AnuncioService();
+            try
+            {
+                var versoes = service.GetVersoes(modeloId);
+                Response.StatusCode = 200;
+                return Json(versoes);
+            }catch(Exception ex)
+            {
+                Response.StatusCode = 500;
+                throw ex;
+            }
+
+        }
+
         [HttpPost]
         public JsonResult Adicionar(Anuncio anuncio)
         {

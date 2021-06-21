@@ -13,17 +13,12 @@ namespace WebMotors.Models
         {
 
         }
-        [JsonProperty("id")]
+
         public int Id { get; set; }
-        [JsonProperty("Make")]
         public string Marca { get; set; }
-        [JsonProperty("Model")]
         public string Modelo { get; set; }
-        [JsonProperty("Version")]
         public string Versao { get; set; }
-        [JsonProperty("YearModel")]
         public int Ano { get; set; }
-        [JsonProperty("KM")]
         public int Quilometragem { get; set; }
         public string Observacao { get; set; }
 

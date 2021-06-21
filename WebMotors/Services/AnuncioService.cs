@@ -22,7 +22,7 @@ namespace WebMotors.Services
         private RestRequest CreateRequest(string endPoint, Method method)
         {
             Client = new RestClient();
-            var request = new RestRequest(endPoint, method);
+            var request = new RestRequest(endPoint, method, DataFormat.Json);
             request.RequestFormat = DataFormat.Json;
             request.AddHeader("Accept", "application/json");
             return request;
@@ -30,12 +30,13 @@ namespace WebMotors.Services
 
         public object GetMarcas()
         {
-            var request = CreateRequest("/api/OnlineChallenge/Make", Method.GET);
+            var request = CreateRequest("https://desafioonline.webmotors.com.br/api/OnlineChallenge/Make", Method.GET);
             try
             {
                 var response = Client.Execute(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
+                    
                     return JsonConvert.DeserializeObject(response.Content);
                 }
                 else
@@ -51,7 +52,7 @@ namespace WebMotors.Services
 
         public object GetModelos(int marcaId)
         {
-            var request = CreateRequest($"/api/OnlineChallenge/Model?MakeId={marcaId}", Method.GET);
+            var request = CreateRequest($"https://desafioonline.webmotors.com.br/api/OnlineChallenge/Model?MakeId={marcaId}", Method.GET);
             try
             {
                 var response = Client.Execute(request);
@@ -72,13 +73,13 @@ namespace WebMotors.Services
 
         public object GetVersoes(int ModeloId)
         {
-            var request = CreateRequest($"/api/OnlineChallenge/Version?ModelId={ModeloId}", Method.GET);
+            var request = CreateRequest($"https://desafioonline.webmotors.com.br/api/OnlineChallenge/Version?ModelId={ModeloId}", Method.GET);
             try
             {
                 var response = Client.Execute(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    return JsonConvert.DeserializeObject(response.Content);
+                    return response.Content;
                 }
                 else
                 {

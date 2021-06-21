@@ -28,9 +28,117 @@
     </table>
 </div>
 <div class="col-md-12">
-    <h1 class="h1">CRUD para os Anuncios</h1>
-    <table>
-
-    </table>
+    <form>
+        <h1 class="h1">CRUD para os Anuncios</h1>
+        <div>
+            <table class="col-sm-4">
+                <tr>
+                    <th style="text-align: center">Marcas</th>
+                    @if (ViewBag.MarcasOnline != null)
+                    {
+                        <td>
+                            <select name="marcas" id="marcas">
+                                @foreach (var marcaOnline in ViewBag.MarcasOnline)
+                                {
+                                    <option value="@marcaOnline.ID" onclick="verModelos(@marcaOnline.ID)">
+                                        @marcaOnline.Name
+                                    </option>
+                                }
+                            </select>
+                        </td>
+                    }
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table class="col-sm-4">
+                <tr>
+                    <th style="text-align: center">Modelos</th>
+                    <td>
+                        <select name="modelos" id="modelos">
+                            
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table class="col-sm-4">
+                <tr>
+                    <th style="text-align: center">Versoes</th>
+                    <td>
+                        <select name="versoes" id="versoes">
+                            
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-12">
+            <div>
+                <table>
+                    <tr>
+                        <th><label>Ano</label></th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="ano" id="ano" maxlength="4" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th><label>Quilometragem</label></th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="quilometragem" id="quilometragem" maxlength="4" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th><label>Observações</label></th>
+                    </tr>
+                    <tr>
+                        <textarea name="observacoes" id="observacoes"></textarea>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
 </div>
 
+<script>
+    function verModelos(id) {
+        $.ajax({
+            method: "GET",
+            dataType: "json",
+            url: `/home/consultarModelos?marcaId=${id}`,
+            success: function(succ) {
+                var htmlTotal = '';
+                foreach(let obj in succ){
+                    htmlTotal = htmlTotal + '<option value="' + obj.ID + '">' + obj.Name + '</option>';
+                };
+                $('#marcas').html(htmlTotal);
+            },
+            error: function(ex) {
+                alert(ex);
+            }
+        })
+    }
+
+    function verVersoes(id, modeloId) {
+        $.ajax({
+            method: "GET",
+            dataType: "json",
+            url: `/home/index?marcaId=${id}&modeloId=${modeloId}`,
+            success: function () {
+                
+            },
+            error: function (ex) {
+                alert(ex);
+            }
+        })
+    }
+</script>
