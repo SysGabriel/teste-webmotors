@@ -139,8 +139,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Anuncio.cs" />
-    <Compile Include="Models\Marca.cs" />
-    <Compile Include="Models\Modelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AnuncioRepository.cs" />
     <Compile Include="Repository\ConexaoSQL.cs" />

@@ -8,7 +8,7 @@ namespace WebMotors.Repository
 {
     public class AnuncioRepository
     {
-        ConexaoSQL conexao;
+        ConexaoSQL conexao = new ConexaoSQL("Data Source=127.0.0.1,1433;Initial Catalog=teste_webmotors;User ID=alpha;PWD=APL0108");
         public AnuncioRepository()
         {
             
@@ -21,7 +21,7 @@ namespace WebMotors.Repository
                 var sqlVerId = "SELECT Max(Id)+1 From teste_webmotors";
                 var novoId = conexao.Query<int>(sqlVerId).FirstOrDefault();
 
-                var sqlInsert = $"INSERT INTO teste_webmotors (Id,Marca,Modelo,Versao,Ano,Quilometragem,Observacao) VALUES ({novoId},'{anuncio.Marca}','{anuncio.Modelo}','{anuncio.Versao}',{anuncio.Ano},{anuncio.Quilometragem},{anuncio.Observacao})";
+                var sqlInsert = $"INSERT INTO tb_AnuncioWebmotors (Id,Marca,Modelo,Versao,Ano,Quilometragem,Observacao) VALUES ({novoId},'{anuncio.Marca}','{anuncio.Modelo}','{anuncio.Versao}',{anuncio.Ano},{anuncio.Quilometragem},{anuncio.Observacao})";
                 conexao.Executar(sqlInsert);
             }
             catch (Exception ex)
@@ -34,7 +34,7 @@ namespace WebMotors.Repository
         {
             try
             {
-                var sqlUpdate = $"UPDATE teste_webmotors SET Marca='{anuncio.Marca}', Modelo='{anuncio.Modelo}', Versao='{anuncio.Versao}', Ano={anuncio.Ano}, Quilometragem={anuncio.Quilometragem}, Observacao='{anuncio.Observacao}'";
+                var sqlUpdate = $"UPDATE tb_AnuncioWebmotors SET Marca='{anuncio.Marca}', Modelo='{anuncio.Modelo}', Versao='{anuncio.Versao}', Ano={anuncio.Ano}, Quilometragem={anuncio.Quilometragem}, Observacao='{anuncio.Observacao}'";
                 conexao.Executar(sqlUpdate);
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace WebMotors.Repository
         {
             try
             {
-                var sqlDelete = $"DELETE FROM teste_webmotors WHERE Id={id}";
+                var sqlDelete = $"DELETE FROM tb_AnuncioWebmotors WHERE Id={id}";
             }
             catch(Exception ex)
             {
@@ -60,7 +60,7 @@ namespace WebMotors.Repository
         {
             try
             {
-                var sqlSelect = $"SELECT * FROM teste_webmotors WHERE Id={id}";
+                var sqlSelect = $"SELECT * FROM tb_AnuncioWebmotors WHERE Id={id}";
                 return conexao.Query<Anuncio>(sqlSelect).First();
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace WebMotors.Repository
         {
             try
             {
-                var sqlSelect = $"SELECT * FROM teste_webmotors";
+                var sqlSelect = $"SELECT * FROM tb_AnuncioWebmotors";
                 return conexao.Query<Anuncio>(sqlSelect).ToList();
             }
             catch (Exception ex)

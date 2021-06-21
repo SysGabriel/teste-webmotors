@@ -21,6 +21,7 @@ namespace WebMotors.Services
 
         private RestRequest CreateRequest(string endPoint, Method method)
         {
+            Client = new RestClient();
             var request = new RestRequest(endPoint, method);
             request.RequestFormat = DataFormat.Json;
             request.AddHeader("Accept", "application/json");
@@ -69,7 +70,7 @@ namespace WebMotors.Services
             }
         }
 
-        public object GetVersoes(int ModeloId
+        public object GetVersoes(int ModeloId)
         {
             var request = CreateRequest($"/api/OnlineChallenge/Version?ModelId={ModeloId}", Method.GET);
             try

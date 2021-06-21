@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebMotors.Services;
 using WebMotors.Repository;
+using WebMotors.Models;
 
 namespace WebMotors.Controllers
 {
@@ -15,60 +16,74 @@ namespace WebMotors.Controllers
         {
             ViewBag.Title = "Home Page";
             AnuncioService service = new AnuncioService();
-            ViewBag.MarcasOnline = service.GetMarcas();
-            ViewBag.AnunciosSalvos = repository.GetAnuncios();
-
-            return View();
-        }
-
-        public ActionResult Index(int marcaId)
-        {
-            ViewBag.Title = "Home Page";
-            AnuncioService service = new AnuncioService();
-            ViewBag.MarcasOnline = service.GetMarcas();
-            ViewBag.ModelosOnline = service.GetModelos(marcaId);
-            ViewBag.AnunciosSalvos = repository.GetAnuncios();
-
-            return View();
-        }
-
-        public ActionResult Index(int marcaId, int modeloId)
-        {
-            ViewBag.Title = "Home Page";
-            AnuncioService service = new AnuncioService();
-            ViewBag.MarcasOnline = service.GetMarcas();
-            ViewBag.ModelosOnline = service.GetModelos(marcaId);
-            ViewBag.VersoesOnline = service.GetVersoes(modeloId);
-            ViewBag.AnunciosSalvos = repository.GetAnuncios();
+            try
+            {
+                ViewBag.AnunciosSalvos = repository.GetAnuncios();
+                var marcasOnline = service.GetMarcas();
+                ViewBag.MarcasOnline = marcasOnline;                
+            }
+            catch(Exception ex)
+            {
+                Response.StatusCode = 200;
+                throw ex;
+            }
+            
 
             return View();
         }
         [HttpPost]
-        public JsonResult Adicionar(int marcaId, int modeloId, int )
+        public JsonResult Adicionar(Anuncio anuncio)
         {
-            ViewBag.Title = "Home Page";
             AnuncioService service = new AnuncioService();
-            ViewBag.MarcasOnline = service.GetMarcas();
             ViewBag.AnunciosSalvos = repository.GetAnuncios();
-
-            return Json("Adicionado com sucesso");
+            try
+            {
+                repository.AddAnuncio(anuncio);
+                Response.StatusCode = 200;
+                return Json("Adicionado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 500;
+                throw ex;
+            }
+            
         }
 
         [HttpPost]
-        public JsonResult Editar()
+        public JsonResult Editar(Anuncio anuncio)
         {
             ViewBag.Title = "Editar";
+            try
+            {
+                repository.UpdateAnuncio(anuncio);
+                Response.StatusCode = 200;
+                return Json("Editado com Sucesso");
+            }catch(Exception ex)
+            {
+                Response.StatusCode = 500;
+                throw ex;
+            }
 
             
-            return Json("Editado com Sucesso");
         }
 
         [HttpPost]
         public JsonResult Deletar(int id)
         {
             ViewBag.Title = "Deletar";
-
-            return Json("Deletado com sucesso");
+            try
+            {
+                repository.DeleteAnuncio(id);
+                Response.StatusCode = 200;
+                return Json("Deletado com sucesso");
+            }
+            catch(Exception ex)
+            {
+                Response.StatusCode = 500;
+                throw ex;
+            }
+            
         }
 
         //public JsonResult SalvarMarca

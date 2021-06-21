@@ -1,21 +1,36 @@
 ﻿<div class="col-md-12">
-    CRUD API
+    <h1 class="h1">Anuncios Cadastrados</h1>
     <table>
         <tr>
-            <form action="/home/index" method="get">
-                <th>Marca</th>
-                <td>
-                    <select name="makeId">
-                        @if (ViewBag.MarcaOnline != null)
-                        {
-                            foreach (var marca in ViewBag.MarcaOnline)
-                            {
-                                <option value="@marca.Id">@marca.Nome</option>
-                            }
-                        }
-                    </select>
-                </td>
-            </form>
+            <th>Id</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Versão</th>
+            <th>Ano</th>
+            <th>Quilometragem</th>
+            <th>Observação</th>
+        </tr>
+        <tr>
+            @if(ViewBag.Anuncios != null)
+            {
+                foreach(var anuncio in ViewBag.Anuncios)
+                {
+                    <td class="col-1">@anuncio.Id</td>
+                    <td class="col-2">@anuncio.Marca</td>
+                    <td class="col-2">@anuncio.Modelo</td>
+                    <td class="col-3">@anuncio.Versao</td>
+                    <td class="col-1">@anuncio.Ano</td>
+                    <td class="col-1">@anuncio.Quilometragem</td>
+                    <td class="col-2">@anuncio.Observacao</td>
+                }
+            }
         </tr>
     </table>
 </div>
+<div class="col-md-12">
+    <h1 class="h1">CRUD para os Anuncios</h1>
+    <table>
+
+    </table>
+</div>
+
